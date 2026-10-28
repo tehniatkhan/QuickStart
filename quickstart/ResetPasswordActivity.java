@@ -1,0 +1,5 @@
+package com.example.quickstart;
+import android.app.Activity;import android.os.Bundle;import android.text.InputType;import android.widget.*;
+public class ResetPasswordActivity extends Activity {
+ @Override protected void onCreate(Bundle b){super.onCreate(b);LinearLayout root=Ui.page(this,"Reset password","Choose a new password for your account.");EditText p1=Ui.input(this,"New password (6+ characters)",InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);EditText p2=Ui.input(this,"Confirm new password",InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);root.addView(p1);root.addView(p2);root.addView(Ui.button(this,"Save new password",()->{String a=Ui.value(p1),c=Ui.value(p2);if(a.length()<6){Ui.toast(this,"Password must be at least 6 characters");return;}if(!a.equals(c)){Ui.toast(this,"Passwords do not match");return;}getSharedPreferences("account",MODE_PRIVATE).edit().putString("password",a).apply();Ui.toast(this,"Password updated");finish();}));root.addView(Ui.link(this,"Cancel",()->finish()));}
+}

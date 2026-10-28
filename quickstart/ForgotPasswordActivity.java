@@ -1,0 +1,5 @@
+package com.example.quickstart;
+import android.app.Activity; import android.content.Intent; import android.os.Bundle; import android.text.InputType; import android.widget.*;
+public class ForgotPasswordActivity extends Activity {
+ @Override protected void onCreate(Bundle b){super.onCreate(b);LinearLayout root=Ui.page(this,"Forgot password?","Enter the email address linked to your account.");EditText email=Ui.input(this,"Email address",InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);root.addView(email);root.addView(Ui.button(this,"Continue",()->{String e=Ui.value(email);if(!android.util.Patterns.EMAIL_ADDRESS.matcher(e).matches()){Ui.toast(this,"Enter a valid email address");return;}String saved=getSharedPreferences("account",MODE_PRIVATE).getString("email","demo@quickstart.com");if(!e.equals(saved)){Ui.toast(this,"No account found with this email");return;}Intent i=new Intent(this,ResetPasswordActivity.class);i.putExtra("email",e);startActivity(i);}));root.addView(Ui.link(this,"Back to login",()->finish()));}
+}
